@@ -28,44 +28,40 @@
     <body>
         
         <article>
-        <h2>Full Screen Editing</h2>
+        <h2>Python Code Editor</h2>
         
-        <form><textarea id="code" name="code" rows="5">
+        <form name="user response">
+            <textarea id="code" name="code" rows="5">
 
-        <dl>
-            <dt id="option_indentWithTabs"><code><strong>indentWithTabs</strong>: boolean</code></dt>
-            <dd>Whether, when indenting, the first N*<code>tabSize</code>
-            spaces should be replaced by N tabs. Default is false.</dd>
+    import random
+    number = random.randint(1, 99)
+    guesses = 0
 
-            <dt id="option_electricChars"><code><strong>electricChars</strong>: boolean</code></dt>
-            <dd>Configures whether the editor should re-indent the current
-            line when a character is typed that might change its proper
-            indentation (only works if the mode supports indentation).
-            Default is true.</dd>
+    print ("I just taken one number between 1 to 99 in mind, you have to guess it...")
+    while guesses < 5:
+    guess = int(input("Enter an integer from 1 to 99: "))
+    guesses +=1
+    print ("this is your %d guess" %guesses)
+    if guess < number:
+    print ("guess is low")
+    elif guess > number:
+    print ("guess is high")
+    elif guess == number:
+    break
 
-            <dt id="option_specialChars"><code><strong>specialChars</strong>: RegExp</code></dt>
-            <dd>A regular expression used to determine which characters
-            should be replaced by a
-            special <a href="#option_specialCharPlaceholder">placeholder</a>.
-            Mostly useful for non-printing special characters. The default
-            is <code>/[\u0000-\u0019\u00ad\u200b\u2028\u2029\ufeff]/</code>.</dd>
-            <dt id="option_specialCharPlaceholder"><code><strong>specialCharPlaceholder</strong>: function(char) → Element</code></dt>
-            <dd>A function that, given a special character identified by
-            the <a href="#option_specialChars"><code>specialChars</code></a>
-            option, produces a DOM node that is used to represent the
-            character. By default, a red dot (<span style="color: red">•</span>)
-            is shown, with a title tooltip to indicate the character code.</dd>
+    if guess == number:
+    guesses = str(guesses)
+    print ("You guess it in : ", guesses + " guesses")
 
-            <dt id="option_rtlMoveVisually"><code><strong>rtlMoveVisually</strong>: boolean</code></dt>
-            <dd>Determines whether horizontal cursor movement through
-            right-to-left (Arabic, Hebrew) text is visual (pressing the left
-            arrow moves the cursor left) or logical (pressing the left arrow
-            moves to the next lower index in the string, which is visually
-            right in right-to-left text). The default is <code>false</code>
-            on Windows, and <code>true</code> on other platforms.</dd>
-        </dl>
+    if guess != number:
+    number = str(number)
+    print ("The secret number was", number)
 
-        </textarea></form>
+            </textarea>
+            
+            </br>
+            <input type="submit" Value="Submit"/> 
+        </form>
         
         <script>
         var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
