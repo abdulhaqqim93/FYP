@@ -67,9 +67,9 @@ public final class game_005froom_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("    <body>\r\n");
       out.write("        \r\n");
       out.write("        <article>\r\n");
-      out.write("        <h2>Full Screen Editing</h2>\r\n");
+      out.write("        <h2>Python Code Editor</h2>\r\n");
       out.write("        \r\n");
-      out.write("        <form name=\"user response\">\r\n");
+      out.write("        <form name=\"userResponse\" action=\"userResponseAction.jsp\" method=\"POST\">\r\n");
       out.write("            <textarea id=\"code\" name=\"code\" rows=\"5\">\r\n");
       out.write("\r\n");
       out.write("    import random\r\n");
