@@ -4,6 +4,7 @@
     Author     : Ignore
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -27,35 +28,34 @@
     
     <body>
         
-        <article>
         <h2>Python Code Editor</h2>
         
-        <form name="userResponse" action="game_room.jsp" method="POST">
+        <form name="userResponse" action="userResponseController" method="POST">
             <textarea id="code" name="code" rows="5">
 
-    import random
-    number = random.randint(1, 99)
-    guesses = 0
+            import random
+            number = random.randint(1, 99)
+            guesses = 0
 
-    print ("I just taken one number between 1 to 99 in mind, you have to guess it...")
-    while guesses < 5:
-    guess = int(input("Enter an integer from 1 to 99: "))
-    guesses +=1
-    print ("this is your %d guess" %guesses)
-    if guess < number:
-    print ("guess is low")
-    elif guess > number:
-    print ("guess is high")
-    elif guess == number:
-    break
+            print ("I just taken one number between 1 to 99 in mind, you have to guess it...")
+            while guesses < 5:
+            guess = int(input("Enter an integer from 1 to 99: "))
+            guesses +=1
+            print ("this is your %d guess" %guesses)
+            if guess < number:
+            print ("guess is low")
+            elif guess > number:
+            print ("guess is high")
+            elif guess == number:
+            break
 
-    if guess == number:
-    guesses = str(guesses)
-    print ("You guess it in : ", guesses + " guesses")
+            if guess == number:
+            guesses = str(guesses)
+            print ("You guess it in : ", guesses + " guesses")
 
-    if guess != number:
-    number = str(number)
-    print ("The secret number was", number)
+            if guess != number:
+            number = str(number)
+            print ("The secret number was", number)
 
             </textarea>
             
@@ -64,18 +64,18 @@
         </form>
         
         <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            theme: "night",
-            extraKeys: {
-                "F11": function(cm) {
-                  cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                },
-                "Esc": function(cm) {
-                  if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                lineNumbers: true,
+                theme: "night",
+                extraKeys: {
+                    "F11": function(cm) {
+                      cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "Esc": function(cm) {
+                      if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                    }
                 }
-            }
-        });
+            });
         </script>
 
         <!-- 
@@ -84,7 +84,6 @@
         toggle full screen editing. <strong>Esc</strong> can also be used
         to <i>exit</i> full screen editing.</p> 
         -->
-        </article>
         
     </body>
     

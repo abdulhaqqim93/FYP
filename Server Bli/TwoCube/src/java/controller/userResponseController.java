@@ -14,22 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 /*
  * @author Vera
  */
+@WebServlet(name = "userResponseController", urlPatterns = {"/userResponseController"})
 public class userResponseController extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // String code = request.getParameter("code") ;
         String code = "test";
         String desktopPath = System.getProperty("user.home") + "/Desktop";
+        
+        //String code = request.getParameter("code");
         
         try {
             FileWriter fw = new FileWriter("D:\\FYP\\Server Bli\\TwoCube\\test\\test.txt", false);
         
-            fw.write(code);
+            //fw.write(code);
             fw.close();
         }
         catch (IOException e){
             System.out.println(e);
         }
+        
+        
+        
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

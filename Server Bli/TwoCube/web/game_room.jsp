@@ -4,6 +4,7 @@
     Author     : Ignore
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
         
         <h2>Python Code Editor</h2>
         
-        <form name="userResponse" action="game_room.jsp" method="POST">
+        <form name="userResponse" action="userResponseController" method="POST">
             <textarea id="code" name="code" rows="5">
 
             import random
