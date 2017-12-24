@@ -30,7 +30,7 @@
         <article>
         <h2>Python Code Editor</h2>
         
-        <form name="userResponse" action="userResponseAction.jsp" method="POST">
+        <form name="userResponse" action="game_room.jsp" method="POST">
             <textarea id="code" name="code" rows="5">
 
     import random
