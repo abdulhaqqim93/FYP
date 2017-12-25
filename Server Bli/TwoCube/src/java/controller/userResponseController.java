@@ -10,31 +10,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /*
  * @author Vera
  */
 @WebServlet(name = "userResponseController", urlPatterns = {"/userResponseController"})
 public class userResponseController extends HttpServlet {
     
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String code = "test";
-        String desktopPath = System.getProperty("user.home") + "/Desktop";
         
-        //String code = request.getParameter("code");
+        // Path to save the file, to be edited from [Desktop] to [pi's directory]
+        String desktopPath = System.getProperty("user.home") + "\\Desktop\\code.py";
+        String code = request.getParameter("code");
         
         try {
-            FileWriter fw = new FileWriter("D:\\FYP\\Server Bli\\TwoCube\\test\\test.txt", false);
-        
-            //fw.write(code);
+            FileWriter fw = new FileWriter(desktopPath);
+            fw.write(code);
             fw.close();
         }
         catch (IOException e){
             System.out.println(e);
         }
-        
-        
-        
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,11 +1,5 @@
-<%-- 
-    Document   : game_room
-    Created on : Dec 18, 2017, 3:19:52 PM
-    Author     : Ignore
---%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="controller.*" %>
 
 <!DOCTYPE html>
 
@@ -13,7 +7,8 @@
     
     <head>
         <!-- CSS in header -->
-        <link href="Asset/CSS/TortugaChild.css" rel="stylesheet" type="text/css">
+        <!-- CSS to be replaced with another theme -->
+        <!-- <link href="Asset/CSS/TortugaChild.css" rel="stylesheet" type="text/css"> -->
         <link href="Asset/CSS/docs.css" rel="stylesheet">
         <link href="Asset/CSS/codemirror.css" rel="stylesheet">
         <link href="Asset/CSS/night.css" rel="stylesheet">
@@ -30,9 +25,9 @@
         
         <h2>Python Code Editor</h2>
         
-        <form name="userResponse" action="userResponseController" method="POST">
+        <form name="userResponse" action="userResponseController" method="post">
             <textarea id="code" name="code" rows="5">
-
+                
             import random
             number = random.randint(1, 99)
             guesses = 0
