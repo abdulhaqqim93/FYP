@@ -32,9 +32,19 @@ public class userResponseController extends HttpServlet {
         String code = request.getParameter("code");
         
         try {
+            // Creating python file
             FileWriter fw = new FileWriter(desktopPath);
             fw.write(code);
             fw.close();
+            
+            // Executing cmd
+            /* 
+             * Note: 
+             * 1. CMD /K = Run Command and then return to the CMD prompt.
+             * 2. Use && to add one or more cmd commands which will be run in sequence
+             */
+            // Runtime.getRuntime().exec(new String[]{"cmd", "/k", "start"});
+            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \"cd .. && cd .. && cd .. && cd .. && cd Users\\USER\\Desktop && start code.py\"");
         }
         catch (IOException e){
             System.out.println(e);
