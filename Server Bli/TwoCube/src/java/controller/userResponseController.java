@@ -44,7 +44,9 @@ public class userResponseController extends HttpServlet {
              * 2. Use && to add one or more cmd commands which will be run in sequence
              */
             // Runtime.getRuntime().exec(new String[]{"cmd", "/k", "start"});
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \"cd .. && cd .. && cd .. && cd .. && cd Users\\USER\\Desktop && start code.py\"");
+            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \"cd .. && cd .. && cd .. && cd .. && cd Users\\USER\\Desktop && pscp code.py pi@1.1.1.1:/home/pi/Desktop/GoPiGoLocal \"");
+            
+            
         }
         catch (IOException e){
             System.out.println(e);
