@@ -28,7 +28,14 @@
         <form name="userResponse" action="userResponseController" method="post">
             <textarea id="code" name="code" rows="5">
                 
-            print('Hello')
+            from gopigo import *
+            import time
+            import easygopigo3 as easy
+
+            robot = easy.EasyGoPiGo3()
+            
+            robot.forward()
+            time.sleep(2)
 
             </textarea>
             

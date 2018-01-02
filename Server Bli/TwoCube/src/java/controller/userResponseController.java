@@ -42,13 +42,11 @@ public class userResponseController extends HttpServlet {
              * Note: 
              * 1. CMD /K = Run Command and then return to the CMD prompt.
              * 2. Use && to add one or more cmd commands which will be run in sequence
+             * 3. -pw [password], is for the pi's login credentials
              */
-            // Runtime.getRuntime().exec(new String[]{"cmd", "/k", "start"});
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \"cd .. && cd .. && cd .. && cd .. && cd Users\\USER\\Desktop && pscp code.py pi@1.1.1.1:/home/pi/Desktop/GoPiGoLocal \"");
-            
-            
+            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \"cd .. && cd .. && cd .. && cd .. && cd Users\\USER\\Desktop && pscp -pw robots1234 code.py pi@1.1.1.1:/home/pi/Desktop/GoPiGoLocal \"");  
         }
-        catch (IOException e){
+        catch (Exception e){
             System.out.println(e);
         }
     }
