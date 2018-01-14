@@ -27,8 +27,9 @@ public class userResponseController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        // Path to save the file, to be edited from [Desktop] to [pi's directory]
-        String desktopPath = System.getProperty("user.home") + "\\Desktop\\code.py";
+        // Path to save the file, ot be edited from [Desktop] to [pi's directory]
+        // String desktopPath = System.getProperty("user.home") + "\\Desktop\\code.py";
+        String desktopPath = "D:\\FYP\\Server Bli\\code.py"; 
         String code = request.getParameter("code");
         
         try {
@@ -44,7 +45,10 @@ public class userResponseController extends HttpServlet {
              * 2. Use && to add one or more cmd commands which will be run in sequence
              * 3. -pw [password], is for the pi's login credentials
              */
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \"cd .. && cd .. && cd .. && cd .. && cd Users\\USER\\Desktop && pscp -pw robots1234 code.py pi@1.1.1.1:/home/pi/Desktop/GoPiGoLocal \"");  
+            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \" D: && cd FYP/Server Bli && WinSCP.com /script=\"script.txt\" \"");  
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/game_room.jsp");
+            dispatcher.forward(request, response);
         }
         catch (Exception e){
             System.out.println(e);

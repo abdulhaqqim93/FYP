@@ -25,23 +25,31 @@
         
         <h2>Python Code Editor</h2>
         
-        <form name="userResponse" action="userResponseController" method="post">
-            <textarea id="code" name="code" rows="5">
+        <div style="float: left; width: 50%">
+            <form name="userResponse" action="userResponseController" method="post">
+                <textarea id="code" name="code" rows="5">
                 
-            from gopigo import *
-            import time
-            import easygopigo3 as easy
+from gopigo import *
+import time
+import easygopigo3 as easy
 
-            robot = easy.EasyGoPiGo3()
-            
-            robot.forward()
-            time.sleep(2)
+robot = easy.EasyGoPiGo3()
 
-            </textarea>
+robot.forward()
+time.sleep(2)
+robot.stop()
+
+                </textarea>
+
+                </br>
+                <input type="submit" Value="Submit"/> 
+            </form>
+        </div>
+        
+        <div style="float: left; width: 50%">
             
-            </br>
-            <input type="submit" Value="Submit"/> 
-        </form>
+            
+        </div>
         
         <script>
             var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
