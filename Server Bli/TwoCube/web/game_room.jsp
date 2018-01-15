@@ -46,8 +46,9 @@ robot.stop()
             </form>
         </div>
         
-        <div style="float: left; width: 50%">
+        <div style="float: right; width: 50%">
             
+            <iframe src="http://www.ustream.tv/embed/23512384?html5ui=1&autoplay=true&controls=false&showtitle=false" style="border: 0 none transparent;"  webkitallowfullscreen allowfullscreen frameborder="no" width="100%" height="300"></iframe>
             
         </div>
         
