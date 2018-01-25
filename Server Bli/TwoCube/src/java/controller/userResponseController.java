@@ -30,7 +30,7 @@ public class userResponseController extends HttpServlet {
         // Path to save the file, ot be edited from [Desktop] to [pi's directory]
         // String desktopPath = System.getProperty("user.home") + "\\Desktop\\code.py";
         //String desktopPath = "D:\\FYP\\Server Bli\\code.py"; 
-        String serverPath = "/opt/bitnami/apache-tomcat/webapps/TwoCube";
+        String serverPath = "/opt/bitnami/apache-tomcat/webapps/TwoCube/code.py";
         String code = request.getParameter("code");
         
         try {
