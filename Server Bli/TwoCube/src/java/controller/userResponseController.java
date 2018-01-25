@@ -29,12 +29,13 @@ public class userResponseController extends HttpServlet {
         
         // Path to save the file, ot be edited from [Desktop] to [pi's directory]
         // String desktopPath = System.getProperty("user.home") + "\\Desktop\\code.py";
-        String desktopPath = "D:\\FYP\\Server Bli\\code.py"; 
+        //String desktopPath = "D:\\FYP\\Server Bli\\code.py"; 
+        String serverPath = "/opt/bitnami/apache-tomcat/webapps/TwoCube";
         String code = request.getParameter("code");
         
         try {
             // Creating python file
-            FileWriter fw = new FileWriter(desktopPath);
+            FileWriter fw = new FileWriter(/*desktop*/serverPath);
             fw.write(code);
             fw.close();
             
@@ -45,7 +46,8 @@ public class userResponseController extends HttpServlet {
              * 2. Use && to add one or more cmd commands which will be run in sequence
              * 3. -pw [password], is for the pi's login credentials
              */
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \" D: && cd FYP/Server Bli && WinSCP.com /script=\"script.txt\" \"");  
+            //Runtime.getRuntime().exec("cmd /c start cmd.exe /k \" D: && cd FYP/Server Bli && WinSCP.com /script=\"script.txt\" \"");  
+            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \" / && cd /opt/bitnami/apache-tomcat/webapps/TwoCube && WinSCP.com /script=\"script.txt\" \""); 
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("/game_room.jsp");
             dispatcher.forward(request, response);
