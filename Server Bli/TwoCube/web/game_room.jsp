@@ -23,22 +23,26 @@
     
     <body>
         
-        <h2>Python Code Editor</h2>
+        <h2>Game Room</h2>
         
-        <div style="float: left; width: 50%">
+        <div style="float: left; width: 50%;">
             <form name="userResponse" action="userResponseController" method="post">
                 <textarea id="code" name="code" rows="5">
-                
+# Instantiate robot, do not edit                
 from gopigo import *
 import time
 import easygopigo3 as easy
 
 robot = easy.EasyGoPiGo3()
 
-robot.forward()
-time.sleep(2)
-robot.stop()
+# Begin coding here
+robot.drive_cm(50)
+time.sleep(1)
 
+robot.turn_degrees(90)
+time.sleep(1)
+
+robot.stop()
                 </textarea>
 
                 </br>
@@ -46,7 +50,7 @@ robot.stop()
             </form>
         </div>
         
-        <div style="float: right; width: 50%">
+        <div style="float: right; width: 50%;">
             
             <iframe src="http://www.ustream.tv/embed/23512384?html5ui=1&autoplay=true&controls=false&showtitle=false" style="border: 0 none transparent;"  webkitallowfullscreen allowfullscreen frameborder="no" width="100%" height="300"></iframe>
             

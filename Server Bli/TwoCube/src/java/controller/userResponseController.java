@@ -1,17 +1,22 @@
 package controller;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.util.*;
+import java.net.URL;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import static javax.servlet.SessionTrackingMode.URL;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 /*
- * @author Vera
+ * @author TwoCube
  */
 @WebServlet(name = "userResponseController", urlPatterns = {"/userResponseController"})
 public class userResponseController extends HttpServlet {
@@ -28,26 +33,47 @@ public class userResponseController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         // Path to save the file, ot be edited from [Desktop] to [pi's directory]
-        // String desktopPath = System.getProperty("user.home") + "\\Desktop\\code.py";
-        //String desktopPath = "D:\\FYP\\Server Bli\\code.py"; 
         String serverPath = "/opt/bitnami/apache-tomcat/webapps/TwoCube/code.py";
+        //String serverPath = "/opt/code.py";
         String code = request.getParameter("code");
+        
+        String topic        = "Vera/test";
+        String content      = code;
+        int qos             = 2;
+        String broker       = "tcp://iot.eclipse.org:1883";
+        String clientId     = "JavaSample";
+        MemoryPersistence persistence = new MemoryPersistence();
         
         try {
             // Creating python file
             FileWriter fw = new FileWriter(/*desktop*/serverPath);
             fw.write(code);
             fw.close();
+        
+            //MQTT
+            MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            //System.out.println("Connecting to broker: "+broker);
+            sampleClient.connect(connOpts);
+            //System.out.println("Connected");
+            //System.out.println("Publishing message: "+content);
+            MqttMessage message = new MqttMessage(content.getBytes());
+            message.setQos(qos);
+            sampleClient.publish(topic, message);
+            //System.out.println("Message published");
+            sampleClient.disconnect();
+            //System.out.println("Disconnected");
+            //System.exit(0);
             
-            // Executing cmd
+            // Executing cmd - CAN BE REMOVED
             /* 
              * Note: 
              * 1. CMD /K = Run Command and then return to the CMD prompt.
              * 2. Use && to add one or more cmd commands which will be run in sequence
              * 3. -pw [password], is for the pi's login credentials
              */
-            //Runtime.getRuntime().exec("cmd /c start cmd.exe /k \" D: && cd FYP/Server Bli && WinSCP.com /script=\"script.txt\" \"");  
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /k \" / && cd /opt/bitnami/apache-tomcat/webapps/TwoCube && WinSCP.com /script=\"script.txt\" \""); 
+            //Runtime.getRuntime().exec("/bin/bash -c /opt/bitnami/apache-tomcat/webapps/WinSCP.com /script=\"/opt/bitnami/apache-tomcat/webapps/script.txt\"");
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("/game_room.jsp");
             dispatcher.forward(request, response);
