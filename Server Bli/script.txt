@@ -1,6 +1,0 @@
-open scp://pi:robots1234@192.168.1.8 -hostkey="*"
-put code.py /home/pi/Desktop/GoPiGoLocal/
-call cd /home/pi/Desktop/GoPiGoLocal/ 
-call sudo python code.py
-close
-exit
