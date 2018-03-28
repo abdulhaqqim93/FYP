@@ -26,79 +26,27 @@
     </head>
     
     <div class="banner" style="height: 187px;">
-        <h1 style="padding-left: 135px; padding-top: 50px; font-weight: 700;">RoboStudio</h1>
+        <a href="https://robostudio.blog/">
+            <img src="Asset/Logo/logo.jpg" alt="Mountain View" style="padding-left: 100px; padding-top: 50px;">
+        </a>
     </div>
     
     <div id="primary" class="content-area">
         <div style="padding-left: 135px; padding-top: 30px;">
             <h1 class="entry-title">Game Room</h1>
         </div>
+        
+        <div id="level" style="padding-left: 135px;">
+            <p id="tips">Please select a difficulty level</p>
+            <input class="tipsBtn" type="button" Value="Beginner" id="beginnerBtn" onclick="beginnerTips()"/>
+            <input class="tipsBtn" type="button" Value="Intermediate" id="intermediateBtn" onclick="intermediateTips()"/>
+            <input class="tipsBtn" type="button" Value="Expert" id="expertBtn" onclick="expertTips()"/>
+        </div>
     </div>
     
     <body class="game">  
         
-        <div style="float: left; width: 50%; padding-left: 135px;">
-            <form name="userResponse" action="userResponseController" method="post">
-                <textarea id="code" name="code" rows="5">
-# Instantiate robot, do not edit                
-from gopigo import *
-import time
-import easygopigo3 as easy
-
-robot = easy.EasyGoPiGo3()
-
-# Begin coding here
-robot.drive_cm(50)
-time.sleep(1)
-
-robot.turn_degrees(90)
-time.sleep(1)
-
-robot.stop()
-                </textarea>
-                
-                <div id="output"></div>
-                
-                </br>
-                <input type="submit" Value="Submit"/> 
-            </form>
-        </div>
-        
-        <div style="float: right; width: 50%; padding-right: 135px;">
-            <iframe src="http://www.ustream.tv/embed/23512384?html5ui=1&autoplay=true&controls=false&showtitle=false" style="border: 0 none transparent;"  webkitallowfullscreen allowfullscreen frameborder="no" width="100%" height="300"></iframe>         
-        </div>
-        
-        <!-- Javascript -->
         <script>
-            // Code Editor
-            var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-                lineNumbers: true,
-                theme: "night",
-                extraKeys: {
-                    "F11": function(cm) {
-                      cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                    },
-                    "Esc": function(cm) {
-                      if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-                    }
-                }
-            });
-            
-            // Code Saver
-            function submitForm() {
-                var data = {
-                    'code': getCode(),
-                };
-                $.ajax({
-                    type: 'POST',
-                    url: $("form").attr("action"),
-                    data: data,
-                    //or your custom data either as object {foo: "bar", ...} or foo=bar&...
-                    success: function(response) {
-                        console.log("Submitted - Success");
-                    },
-                });
-            }
             
             // Use HiveMQ's MQTT Broker -> MUCH MORE RELIABLE
             const MQTT_HOST = "ws://iot.eclipse.org/ws";
@@ -144,13 +92,162 @@ robot.stop()
                 $('#output').append(message.payloadString + "<br>");
             };
         </script>
+        
+        <div style="float: left; width: 50%; padding-left: 135px;">
+            <form name="userResponse" action="userResponseController" method="post">
+                <textarea id="code" name="code" rows="5"></textarea>
+                
+                <div id="tip" style="display:none;">
+                    <textarea rows="8" disabled="TRUE">
+Basic commands
+=======================================================
 
-        <!-- 
-        <p>Demonstration of the <a href="../doc/manual.html#addon_fullscreen">fullscreen</a>
-        addon. Press <strong>F11</strong> when cursor is in the editor to
-        toggle full screen editing. <strong>Esc</strong> can also be used
-        to <i>exit</i> full screen editing.</p> 
-        -->
+Refer to sample codes to understand each of the commands.
+
+1. drive_cm()
+E.G. drive_cm(5)
+Note:
+Makes the GoPiGo3 move forward in CMs
+
+2. drive_inches()
+E.G. drive_inches(5)
+Note:
+Makes the GoPiGo3 move forward in Inches
+
+3. drive_degrees()
+E.G. drive_degrees(90)
+Note: 
+Makes the GoPiGo3 robot turn at a specific angle while staying in the same spot.
+degrees are from 0 to 360
+
+4. backward()
+Note:
+Makes the GoPiGo3 move backwards infinitely
+
+5. forward()
+Note:
+Makes the GoPiGo3 move forward infinitely
+
+6. left()
+Note:
+Makes the GoPiGo3 turn left infinitely
+
+7. right()
+Note:	
+Makes the GoPiGo3 turn right infinitely
+
+8. sleep()
+E.G. sleep(1)
+Note:
+This is for the robot to pause and receive the next command/movement
+
+9. stop()
+                    </textarea>
+                </div>
+                
+                <div id="output"></div>                
+                
+                </br>
+                <input class="submit" type="button" Value="Submit" id="submitBtn" onclick="submitForm()"/>
+            </form>
+        </div>
+        
+        <script>
+            function submitForm() {
+                var data = {
+                    'code': getCode(),
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: $("form").attr("action"),
+                    data: data,
+                    //or your custom data either as object {foo: "bar", ...} or foo=bar&...
+                    success: function(response) {
+                        console.log("Submitted - Success");
+                    },
+                });
+            }
+        </script>
+        
+        <div style="float: right; width: 50%; padding-right: 135px;">
+            <iframe src="http://www.ustream.tv/embed/23512384?html5ui=1&autoplay=true&controls=false&showtitle=false" style="border: 0 none transparent;"  webkitallowfullscreen allowfullscreen frameborder="no" width="100%" height="300"></iframe>         
+        </div>
+        
+        <!-- Javascript -->
+        <script>
+            // Code Editor
+            var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                lineNumbers: true,
+                theme: "night",
+                extraKeys: {
+                    "F11": function(cm) {
+                      cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "Esc": function(cm) {
+                      if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                    }
+                }
+            });
+            
+            function getCode() {
+                return editor.getValue();
+            }
+            
+            function beginnerTips()
+            {
+                editor.getDoc().setValue('# Instantiate robot, do not edit\n\
+from gopigo import *\n\
+import time\n\
+import easygopigo3 as easy\n\
+\n\
+robot = easy.EasyGoPiGo3()\n\
+\n\
+# Begin coding here\n\
+robot.drive_cm(50)\n\
+time.sleep(1)\n\
+\n\
+robot.turn_degrees(90)\n\
+time.sleep(1)\n\
+\n\
+robot.stop()\n\
+                ');
+        
+                /*
+                var elem = document.getElementById('tips');
+                elem.parentNode.removeChild(elem);
+                */
+                
+                document.getElementById('tip').style.display = 'block';
+                
+            }
+            
+            function intermediateTips()
+            {
+                editor.getDoc().setValue('# Instantiate robot, do not edit\n\
+from gopigo import *\n\
+import time\n\
+import easygopigo3 as easy\n\
+\n\
+robot = easy.EasyGoPiGo3()\n\
+\n\
+# Begin coding here\n\
+                ');
+        
+                document.getElementById('tip').style.display = 'none';
+                
+            }
+            
+            function expertTips()
+            {
+                editor.getDoc().setValue('# Instantiate robot\n\
+\n\
+# Begin coding here\n\
+                ');
+        
+                document.getElementById('tip').style.display = 'none';
+                
+            }
+        </script>
         
     </body>
     

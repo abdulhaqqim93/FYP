@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -45,35 +48,19 @@ public class userResponseController extends HttpServlet {
         MemoryPersistence persistence = new MemoryPersistence();
         
         try {
-            // Creating python file
-            FileWriter fw = new FileWriter(/*desktop*/serverPath);
-            fw.write(code);
-            fw.close();
-        
             //MQTT
             MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
-            //System.out.println("Connecting to broker: "+broker);
             sampleClient.connect(connOpts);
-            //System.out.println("Connected");
-            //System.out.println("Publishing message: "+content);
             MqttMessage message = new MqttMessage(content.getBytes());
             message.setQos(qos);
-            sampleClient.publish(topic, message);
-            //System.out.println("Message published");
-            sampleClient.disconnect();
-            //System.out.println("Disconnected");
-            //System.exit(0);
             
-            // Executing cmd - CAN BE REMOVED
-            /* 
-             * Note: 
-             * 1. CMD /K = Run Command and then return to the CMD prompt.
-             * 2. Use && to add one or more cmd commands which will be run in sequence
-             * 3. -pw [password], is for the pi's login credentials
-             */
-            //Runtime.getRuntime().exec("/bin/bash -c /opt/bitnami/apache-tomcat/webapps/WinSCP.com /script=\"/opt/bitnami/apache-tomcat/webapps/script.txt\"");
+            try {
+                sampleClient.publish(topic, message);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("/game_room.jsp");
             dispatcher.forward(request, response);
